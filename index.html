@@ -1,1 +1,317 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Birthday Surprise</title>
 
+<style>
+
+body{
+margin:0;
+background:black;
+overflow:hidden;
+font-family:Georgia, serif;
+color:white;
+text-align:center;
+}
+
+canvas{
+position:fixed;
+top:0;
+left:0;
+z-index:-1;
+}
+
+#countdown{
+font-size:120px;
+margin-top:20%;
+color:pink;
+}
+
+#textBox{
+width:70%;
+margin:auto;
+font-size:26px;
+line-height:1.7;
+margin-top:15%;
+opacity:0;
+transition:opacity 1s;
+}
+
+/* BOOK */
+
+#albumTitle{
+display:none;
+font-size:40px;
+color:pink;
+margin-top:60px;
+}
+
+.book{
+display:none;
+position:relative;
+width:600px;
+height:400px;
+margin:40px auto;
+perspective:2000px;
+}
+
+.page{
+position:absolute;
+width:100%;
+height:100%;
+background:white;
+display:flex;
+justify-content:space-around;
+align-items:center;
+transform-origin:left;
+transition:transform 1.5s;
+border-radius:10px;
+box-shadow:0 15px 30px rgba(0,0,0,0.6);
+}
+
+.page img{
+width:250px;
+height:320px;
+object-fit:cover;
+border-radius:10px;
+}
+
+.page.flipped{
+transform:rotateY(-180deg);
+}
+
+</style>
+</head>
+
+<body>
+
+<audio autoplay loop>
+<source src="love_story_indila.mp3" type="audio/mp3">
+</audio>
+
+<canvas id="matrix"></canvas>
+
+<div id="countdown">3</div>
+
+<div id="textBox"></div>
+
+<h2 id="albumTitle">Open Your Birthday Album ❤️</h2>
+
+<div class="book" id="book">
+
+<div class="page">
+<img src="1.jpg">
+<img src="2.jpg">
+</div>
+
+<div class="page">
+<img src="3.jpg">
+<img src="4.jpg">
+</div>
+
+<div class="page">
+<img src="5.jpg">
+<img src="6.jpg">
+</div>
+
+<div class="page">
+<img src="7.jpg">
+<img src="8.jpg">
+</div>
+
+</div>
+
+<script>
+
+// MATRIX RAIN
+
+const canvas = document.getElementById("matrix");
+const ctx = canvas.getContext("2d");
+
+canvas.height = window.innerHeight;
+canvas.width = window.innerWidth;
+
+const letters = "01❤";
+const fontSize = 14;
+const columns = canvas.width/fontSize;
+const drops = [];
+
+for(let x=0;x<columns;x++) drops[x]=1;
+
+function draw(){
+
+ctx.fillStyle="rgba(0,0,0,0.05)";
+ctx.fillRect(0,0,canvas.width,canvas.height);
+
+ctx.fillStyle="pink";
+ctx.font=fontSize+"px monospace";
+
+for(let i=0;i<drops.length;i++){
+
+const text=letters[Math.floor(Math.random()*letters.length)];
+
+ctx.fillText(text,i*fontSize,drops[i]*fontSize);
+
+if(drops[i]*fontSize>canvas.height && Math.random()>0.975)
+drops[i]=0;
+
+drops[i]++;
+
+}
+
+}
+
+setInterval(draw,33);
+
+
+// COUNTDOWN
+
+let count = 3;
+const c = document.getElementById("countdown");
+
+const timer = setInterval(()=>{
+
+count--;
+
+c.innerHTML = count;
+
+if(count==0){
+
+clearInterval(timer);
+
+c.innerHTML = "Happy Birthday My Love ❤️";
+
+setTimeout(()=>{
+
+c.style.display="none";
+startMessages();
+
+},3000);
+
+}
+
+},1000);
+
+
+// MESSAGE PARAGRAPHS
+
+const messages = [
+
+"To: My Best Friend. My Love. My Dweeb. My Nerd. My 1,2,3,4,5,6,7,8,9,10. My Blossom.",
+
+"Happy 19th Birthday to you, my love.",
+
+"As it is written in Jeremiah 29:11, 'For I know the plans I have for you,' declares the Lord, 'plans to prosper you and not to harm you, plans to give you hope and a future.'",
+
+"Today, I celebrate not just the day you were born, but the woman you are becoming.",
+
+"I admire your intellect at such a young age. At 17, I could easily have believed you were 22 because of the wisdom and depth in your words.",
+
+"You are such an ambitious woman. I could not be more proud of how you see yourself and the future you are building.",
+
+"And can we talk about your beauty? Those alluring eyes. That perfect set of teeth.",
+
+"I love you very much, so much that English cannot fully express it.",
+
+"Mathematically, you are an 11/10.",
+
+"The probability of randomly getting every answer wrong in a 30 True/False test is 1 in 1,073,741,824. That’s how rare you are.",
+
+"In economics, scarcity increases value. There will never be another you. You are priceless.",
+
+"Leonardo da Vinci once said: Simplicity is the ultimate sophistication. That's you.",
+
+"In physics, imagination turns possibility into reality. I imagined you before I even knew you existed.",
+
+"I cherish you deeply. I love you very much.",
+
+"Grow in grace my best friend.",
+
+"Happy Birthday, my Blossom ❤️"
+
+];
+
+const box = document.getElementById("textBox");
+
+function startMessages(){
+
+showMessage(0);
+
+}
+
+function showMessage(i){
+
+if(i>=messages.length){
+
+box.style.display="none";
+showAlbum();
+return;
+
+}
+
+let msg = messages[i];
+
+box.innerText = msg;
+
+box.style.opacity=1;
+
+let words = msg.split(" ").length;
+
+let time = (words*350)+1000;
+
+setTimeout(()=>{
+
+box.style.opacity=0;
+
+setTimeout(()=>{
+
+showMessage(i+1);
+
+},1000);
+
+},time);
+
+}
+
+
+// SHOW ALBUM
+
+function showAlbum(){
+
+document.getElementById("albumTitle").style.display="block";
+document.getElementById("book").style.display="block";
+
+startFlip();
+
+}
+
+
+// PAGE FLIP
+
+const pages = document.querySelectorAll(".page");
+
+let index = 0;
+
+function startFlip(){
+
+setTimeout(flipPage,2000);
+
+}
+
+function flipPage(){
+
+if(index >= pages.length) return;
+
+pages[index].classList.add("flipped");
+
+index++;
+
+setTimeout(flipPage,4000);
+
+}
+
+</script>
+
+</body>
+</html>
