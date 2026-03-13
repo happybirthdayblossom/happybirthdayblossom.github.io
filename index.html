@@ -1,317 +1,203 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Birthday Surprise</title>
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday My Blossom ❤️</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
+/* General Styles */
+body{margin:0;font-family:'Poppins',sans-serif;background:#240046;overflow:hidden;color:white;text-align:center;}
+canvas#matrix{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;}
 
-body{
-margin:0;
-background:black;
-overflow:hidden;
-font-family:Georgia, serif;
-color:white;
-text-align:center;
-}
+/* Countdown */
+#countdown{font-family:'Playfair Display',serif;font-size:80px;margin-top:30vh;color:#ffb6c1;text-shadow:0 0 20px #ff4d6d;}
 
-canvas{
-position:fixed;
-top:0;
-left:0;
-z-index:-1;
-}
+/* Fireworks */
+#fireworks{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:1000;}
 
-#countdown{
-font-size:120px;
-margin-top:20%;
-color:pink;
-}
+/* Birthday Reveal */
+#reveal{display:none;animation:fadein 1s forwards;}
 
-#textBox{
-width:70%;
-margin:auto;
-font-size:26px;
-line-height:1.7;
-margin-top:15%;
-opacity:0;
-transition:opacity 1s;
-}
+/* Heart */
+.heart{width:150px;height:150px;margin:40px auto;position:relative;}
+.heart:before,.heart:after{content:"";position:absolute;width:75px;height:120px;background:linear-gradient(145deg,#ff4d6d,#c9184a);border-radius:75px 75px 0 0;}
+.heart:before{left:75px;transform:rotate(-45deg);transform-origin:0 100%;}
+.heart:after{left:0;transform:rotate(45deg);transform-origin:100% 100%;}
+.heart.beat{animation:heartbeat 1s infinite;}
+@keyframes heartbeat{0%{transform:scale(1);}25%{transform:scale(1.15);}40%{transform:scale(1);}60%{transform:scale(1.15);}100%{transform:scale(1);}}
 
-/* BOOK */
+/* Messages */
+.message{opacity:0;transform:translateY(25px);transition:1s;line-height:1.9;margin:20px auto;font-size:18px;max-width:700px;}
+.message.show{opacity:1;transform:translateY(0);}
 
-#albumTitle{
-display:none;
-font-size:40px;
-color:pink;
-margin-top:60px;
-}
+/* Photo Book */
+#albumTitle{display:none;font-size:40px;color:#ffb6c1;margin-top:40px;}
+.book{display:none;position:relative;width:600px;height:400px;margin:40px auto;perspective:2000px;}
+.page{position:absolute;width:100%;height:100%;background:white;display:flex;justify-content:space-around;align-items:center;transform-origin:left;transition:transform 1.5s;box-shadow:0 15px 30px rgba(0,0,0,0.6);border-radius:10px;}
+.page img{width:250px;height:320px;object-fit:cover;border-radius:10px;}
+.page.flipped{transform:rotateY(-180deg);}
 
-.book{
-display:none;
-position:relative;
-width:600px;
-height:400px;
-margin:40px auto;
-perspective:2000px;
-}
+/* FadeIn */
+@keyframes fadein{from{opacity:0;} to{opacity:1;}}
 
-.page{
-position:absolute;
-width:100%;
-height:100%;
-background:white;
-display:flex;
-justify-content:space-around;
-align-items:center;
-transform-origin:left;
-transition:transform 1.5s;
-border-radius:10px;
-box-shadow:0 15px 30px rgba(0,0,0,0.6);
-}
-
-.page img{
-width:250px;
-height:320px;
-object-fit:cover;
-border-radius:10px;
-}
-
-.page.flipped{
-transform:rotateY(-180deg);
-}
-
+/* 3-2-1 Countdown */
+#dramaticCount{display:none;font-size:100px;color:#ffb6c1;text-shadow:0 0 20px #ff4d6d;margin-top:20vh;}
 </style>
 </head>
-
 <body>
 
-<audio autoplay loop>
-<source src="love_story_indila.mp3" type="audio/mp3">
-</audio>
-
 <canvas id="matrix"></canvas>
+<div id="fireworks"></div>
 
-<div id="countdown">3</div>
+<!-- Countdown before birthday -->
+<div id="countdown"></div>
 
-<div id="textBox"></div>
+<!-- Reveal -->
+<div id="reveal">
+  <div id="dramaticCount">3</div>
+  <h1>Happy Birthday My Love ❤️</h1>
+  <div class="heart"></div>
 
-<h2 id="albumTitle">Open Your Birthday Album ❤️</h2>
+  <!-- Messages -->
+  <div id="messages">
+    <p class="message">To: My Best Friend 💞, My Love ❣️, My Dweeb 🫠, My Nerd 🤓, My four eyes 😂, My 1️⃣…My 10️⃣, My Blossom ❤️</p>
+    <p class="message">Happy 19th Birthday, my love 💕. Today, I celebrate not just the day you were born, but the incredible woman you are becoming…</p>
+    <p class="message">“I’ve always thought attraction is more than just looks… People like you are rare. And of course… you’re very pretty too.”</p>
+    <p class="message">And perhaps they were right. Because from that moment, something about you felt rare and meaningful…</p>
+    <p class="message">As it is written in Jeremiah 29:11: “For I know the plans I have for you… plans to give you hope and a future.”</p>
+    <p class="message">When I look at you — your ambition, your mind, your kindness — I truly believe you are walking toward something extraordinary…</p>
+    <p class="message">And your beauty — oh, your beauty! Those alluring eyes, that perfect smile…</p>
+    <p class="message">Mathematically, you are an 11/10… That’s how rare and extraordinary you are 🤩</p>
+    <p class="message">And if Economics is the study of value and scarcity… You are priceless. Scarcity increases value. You are the only edition 🥹</p>
+    <p class="message">Leonardo da Vinci once said: “Simplicity is the ultimate sophistication.” That’s you 😎</p>
+    <p class="message">In physics, imagination turns possibility into reality… Every thought of yours is like the perfect equation ❤️</p>
+    <p class="message">You are what art itself would call a “pièce de résistance” 😍</p>
+    <p class="message">I cherish you beyond measure. I love you in ways English cannot fully express…</p>
+    <p class="message">Grow in grace, my friend, my best friend, my love. Happy Birthday once again 🎂</p>
+    <p class="message">PS: I learned coding because of you… It is endless 🤍</p>
+  </div>
 
-<div class="book" id="book">
-
-<div class="page">
-<img src="1.jpg">
-<img src="2.jpg">
+  <h2 id="albumTitle">Open Your Birthday Album ❤️</h2>
+  <div class="book" id="book">
+    <div class="page"><img src="1.jpg"><img src="2.jpg"></div>
+    <div class="page"><img src="3.jpg"><img src="4.jpg"></div>
+    <div class="page"><img src="5.jpg"><img src="6.jpg"></div>
+    <div class="page"><img src="7.jpg"><img src="8.jpg"></div>
+  </div>
 </div>
 
-<div class="page">
-<img src="3.jpg">
-<img src="4.jpg">
-</div>
-
-<div class="page">
-<img src="5.jpg">
-<img src="6.jpg">
-</div>
-
-<div class="page">
-<img src="7.jpg">
-<img src="8.jpg">
-</div>
-
-</div>
+<audio id="bgMusic" loop><source src="love_story_indila.mp3" type="audio/mp3"></audio>
 
 <script>
+// ------------------ Configurable Unlock Date ------------------
+let unlockDate = new Date('2026-03-21T00:00:00'); // Change this for testing
 
-// MATRIX RAIN
+// ------------------ Countdown Before Birthday ------------------
+const countdownEl = document.getElementById("countdown");
+function updateCountdown(){
+  const now = new Date();
+  let diff = unlockDate - now;
+  if(diff <= 0){
+    countdownEl.style.display="none";
+    startFireworks();
+  } else {
+    let days=Math.floor(diff/1000/60/60/24);
+    let hours=Math.floor((diff/1000/60/60)%24);
+    let mins=Math.floor((diff/1000/60)%60);
+    let secs=Math.floor((diff/1000)%60);
+    countdownEl.innerHTML=`${days}d : ${hours}h : ${mins}m : ${secs}s`;
+  }
+}
+setInterval(updateCountdown,1000);
+updateCountdown();
 
-const canvas = document.getElementById("matrix");
-const ctx = canvas.getContext("2d");
+// ------------------ Matrix Rain ------------------
+const canvas=document.getElementById("matrix");
+const ctx=canvas.getContext("2d");
+canvas.height=window.innerHeight; canvas.width=window.innerWidth;
+const letters="01❤";
+const fontSize=14; const columns=canvas.width/fontSize; const drops=[];
+for(let i=0;i<columns;i++)drops[i]=1;
+function drawMatrix(){
+  ctx.fillStyle="rgba(36,0,70,0.05)";
+  ctx.fillRect(0,0,canvas.width,canvas.height);
+  ctx.fillStyle="pink"; ctx.font=fontSize+"px monospace";
+  for(let i=0;i<drops.length;i++){
+    const text=letters[Math.floor(Math.random()*letters.length)];
+    ctx.fillText(text,i*fontSize,drops[i]*fontSize);
+    if(drops[i]*fontSize>canvas.height && Math.random()>0.975)drops[i]=0;
+    drops[i]++;
+  }
+}
+setInterval(drawMatrix,33);
 
-canvas.height = window.innerHeight;
-canvas.width = window.innerWidth;
-
-const letters = "01❤";
-const fontSize = 14;
-const columns = canvas.width/fontSize;
-const drops = [];
-
-for(let x=0;x<columns;x++) drops[x]=1;
-
-function draw(){
-
-ctx.fillStyle="rgba(0,0,0,0.05)";
-ctx.fillRect(0,0,canvas.width,canvas.height);
-
-ctx.fillStyle="pink";
-ctx.font=fontSize+"px monospace";
-
-for(let i=0;i<drops.length;i++){
-
-const text=letters[Math.floor(Math.random()*letters.length)];
-
-ctx.fillText(text,i*fontSize,drops[i]*fontSize);
-
-if(drops[i]*fontSize>canvas.height && Math.random()>0.975)
-drops[i]=0;
-
-drops[i]++;
-
+// ------------------ Fireworks ------------------
+function startFireworks(){
+  const fireworksEl=document.getElementById("fireworks");
+  fireworksEl.innerHTML="";
+  for(let i=0;i<15;i++){
+    let div=document.createElement("div");
+    div.style.width=div.style.height="5px";
+    div.style.background="pink";
+    div.style.position="absolute";
+    div.style.left=Math.random()*window.innerWidth+"px";
+    div.style.top=Math.random()*window.innerHeight+"px";
+    div.style.borderRadius="50%";
+    div.style.animation=`fw${i} 1s ease-out`;
+    fireworksEl.appendChild(div);
+  }
+  setTimeout(startReveal,2000);
 }
 
+// ------------------ Reveal Section ------------------
+function startReveal(){
+  document.getElementById("fireworks").style.display="none";
+  document.getElementById("reveal").style.display="block";
+  dramaticCountdown();
 }
 
-setInterval(draw,33);
-
-
-// COUNTDOWN
-
-let count = 3;
-const c = document.getElementById("countdown");
-
-const timer = setInterval(()=>{
-
-count--;
-
-c.innerHTML = count;
-
-if(count==0){
-
-clearInterval(timer);
-
-c.innerHTML = "Happy Birthday My Love ❤️";
-
-setTimeout(()=>{
-
-c.style.display="none";
-startMessages();
-
-},3000);
-
+// ------------------ 3-2-1 Countdown ------------------
+function dramaticCountdown(){
+  const dc=document.getElementById("dramaticCount");
+  dc.style.display="block";
+  let count=3;
+  const timer=setInterval(()=>{
+    dc.innerHTML=count>0?count:"🎉";
+    count--;
+    if(count<0){clearInterval(timer); dc.style.display="none"; startMessages();}
+  },1000);
 }
 
-},1000);
-
-
-// MESSAGE PARAGRAPHS
-
-const messages = [
-
-"To: My Best Friend. My Love. My Dweeb. My Nerd. My 1,2,3,4,5,6,7,8,9,10. My Blossom.",
-
-"Happy 19th Birthday to you, my love.",
-
-"As it is written in Jeremiah 29:11, 'For I know the plans I have for you,' declares the Lord, 'plans to prosper you and not to harm you, plans to give you hope and a future.'",
-
-"Today, I celebrate not just the day you were born, but the woman you are becoming.",
-
-"I admire your intellect at such a young age. At 17, I could easily have believed you were 22 because of the wisdom and depth in your words.",
-
-"You are such an ambitious woman. I could not be more proud of how you see yourself and the future you are building.",
-
-"And can we talk about your beauty? Those alluring eyes. That perfect set of teeth.",
-
-"I love you very much, so much that English cannot fully express it.",
-
-"Mathematically, you are an 11/10.",
-
-"The probability of randomly getting every answer wrong in a 30 True/False test is 1 in 1,073,741,824. That’s how rare you are.",
-
-"In economics, scarcity increases value. There will never be another you. You are priceless.",
-
-"Leonardo da Vinci once said: Simplicity is the ultimate sophistication. That's you.",
-
-"In physics, imagination turns possibility into reality. I imagined you before I even knew you existed.",
-
-"I cherish you deeply. I love you very much.",
-
-"Grow in grace my best friend.",
-
-"Happy Birthday, my Blossom ❤️"
-
-];
-
-const box = document.getElementById("textBox");
-
+// ------------------ Sequential Messages ------------------
 function startMessages(){
-
-showMessage(0);
-
+  const msgs=document.querySelectorAll(".message");
+  let i=0;
+  function showNext(){
+    if(i>=msgs.length){showAlbum(); return;}
+    let msg=msgs[i]; msg.classList.add("show");
+    let words=msg.innerText.split(" ").length;
+    let time=(words*350)+1000; // reading time estimate
+    setTimeout(()=>{msg.classList.remove("show"); i++; showNext();},time);
+  }
+  showNext();
 }
 
-function showMessage(i){
-
-if(i>=messages.length){
-
-box.style.display="none";
-showAlbum();
-return;
-
-}
-
-let msg = messages[i];
-
-box.innerText = msg;
-
-box.style.opacity=1;
-
-let words = msg.split(" ").length;
-
-let time = (words*350)+1000;
-
-setTimeout(()=>{
-
-box.style.opacity=0;
-
-setTimeout(()=>{
-
-showMessage(i+1);
-
-},1000);
-
-},time);
-
-}
-
-
-// SHOW ALBUM
-
+// ------------------ Photo Book ------------------
 function showAlbum(){
-
-document.getElementById("albumTitle").style.display="block";
-document.getElementById("book").style.display="block";
-
-startFlip();
-
+  document.getElementById("albumTitle").style.display="block";
+  document.getElementById("book").style.display="block";
+  const pages=document.querySelectorAll(".page"); let idx=0;
+  function flip(){ if(idx>=pages.length)return; pages[idx].classList.add("flipped"); idx++; setTimeout(flip,4000);}
+  setTimeout(flip,2000);
 }
 
-
-// PAGE FLIP
-
-const pages = document.querySelectorAll(".page");
-
-let index = 0;
-
-function startFlip(){
-
-setTimeout(flipPage,2000);
-
+// ------------------ Music + Heart Beat ------------------
+function playMusic(){
+  document.getElementById("bgMusic").play();
+  document.querySelector(".heart").classList.add("beat");
 }
-
-function flipPage(){
-
-if(index >= pages.length) return;
-
-pages[index].classList.add("flipped");
-
-index++;
-
-setTimeout(flipPage,4000);
-
-}
-
+window.onload=playMusic;
 </script>
-
 </body>
-</html>
+                                                                                                               </html>
