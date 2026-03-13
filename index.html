@@ -3,617 +3,209 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Happy Birthday My Blossom ❤️</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-
+<title>Happy Birthday Blossom</title>
 <style>
+    @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
 
-body{
-  margin:0;
-  font-family:'Poppins',sans-serif;
-  background:#000;
-  color:white;
-  text-align:center;
-  overflow-x:hidden;
-}
+    body, html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        overflow: hidden;
+        background-color: #0b1a38; /* Dark blue background */
+        color: #ff69b4; /* Pink text */
+        font-family: 'Arial', sans-serif;
+    }
 
-/* COUNTDOWN SCREEN */
+    canvas#matrix {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 0;
+    }
 
-#countdownScreen{
-  position:fixed;
-  width:100%;
+    #content {
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        text-align: center;
+        color: #ff69b4;
+    }
 
+    #countdown {
+        font-size: 3em;
+        margin-bottom: 20px;
+    }
 
-@keyframes heartbeat{
-0%{transform:scale(1);}
-25%{transform:scale(1.15);}
-40%{transform:scale(1);}
-60%{transform:scale(1.15);}
-100%{transform:scale(1);}
-}
+    #birthdayMessage {
+        font-size: 2em;
+        display: none;
+        margin-top: 20px;
+        max-width: 80%;
+    }
 
-/* HEADING */
+    .curved-text {
+        font-family: 'Great Vibes', cursive;
+        font-size: 4em;
+        font-weight: bold;
+        margin: 0;
+        line-height: 1.2;
+    }
 
-h1{
-  font-family:'Playfair Display',serif;
-  font-size:42px;
-  margin-bottom:30px;
-}
+    #hearts {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        top: 0;
+        left: 0;
+    }
 
-/* MESSAGES */
+    .heart {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        background-color: pink;
+        transform: rotate(45deg);
+        animation: float 4s linear infinite;
+    }
 
-.message{
-  opacity:0;
-  transform:translateY(25px);
-  transition:1s;
-  line-height:1.9;
-  margin-bottom:28px;
-  font-size:17px;
-  max-width:800px;
-  margin-left:auto;
-  margin-right:auto;
-}
+    .heart:before,
+    .heart:after {
+        content: "";
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        background-color: pink;
+        border-radius: 50%;
+    }
 
-.message.show{
-  opacity:1;
-  transform:translateY(0);
-}
+    .heart:before {
+        top: -10px;
+        left: 0;
+    }
 
-/* PHOTO */
+    .heart:after {
+        left: 10px;
+        top: 0;
+    }
 
-.photo-container{
-  margin:40px 0;
-}
-
-.photo-container img{
-  width:220px;
-  border-radius:20px;
-}
-
-/* CAKE */
-
-.cake{
-  margin:60px auto;
-  position:relative;
-  width:220px;
-}
-
-.layer{
-  height:60px;
-  background:linear-gradient(145deg,#ff8fab,#ff4d6d);
-  border-radius:25px;
-  margin-bottom:-20px;
-}
-
-.layer.base{width:220px;}
-.layer.middle{width:160px;margin:0 auto;}
-.layer.top{width:120px;margin:0 auto;}
-
-.candles{
-  position:absolute;
-  top:-40px;
-  left:50%;
-  transform:translateX(-50%);
-  display:flex;
-  gap:12px;
-}
-
-.candle{
-  width:16px;
-  height:50px;
-  background:white;
-  border-radius:4px;
-  position:relative;
-}
-
-.flame{
-  width:12px;
-  height:18px;
-  background:orange;
-  border-radius:50%;
-  position:absolute;
-  top:-18px;
-  left:2px;
-}
-
-/* BUTTON */
-
-button{
-  padding:14px 30px;
-  background:#ff4d6d;
-  border:none;
-  color:white;
-  border-radius:30px;
-  font-size:16px;
-  cursor:pointer;
-  margin-top:40px;
-}
-
+    @keyframes float {
+        0% { transform: translateY(0) rotate(45deg); opacity:1;}
+        100% { transform: translateY(-800px) rotate(45deg); opacity:0;}
+    }
 </style>
 </head>
-
 <body>
-
-<!-- COUNTDOWN -->
-
-<div id="countdownScreen">
-<h1>Countdown to Blossom's Birthday 🎂</h1>
-<div id="countdown"></div>
-</div>
-
-<!-- MAIN PAGE -->
-
-<div id="mainPage">
-
-<div class="balloon" style="left:10%;animation-duration:15s;background:#ff758f"></div>
-<div class="balloon" style="left:30%;animation-duration:18s;background:#ffd166"></div>
-<div class="balloon" style="left:50%;animation-duration:16s;background:#06d6a0"></div>
-<div class="balloon" style="left:70%;animation-duration:20s;background:#118ab2"></div>
-
-<h1>Happy 19th Birthday Blossom ❤️</h1>
-
-<div class="heart"></div>
-
-<div class="photo-container">
-<img src="her.jpg">
-</div>
-
-<!-- KEEP YOUR MESSAGES HERE EXACTLY AS THEY ARE -->
-
-<div class="cake">
-<div class="layer top"></div>
-<div class="layer middle"></div>
-<div class="layer base"></div>
-
-<div class="candles">
-<div class="candle"><div class="flame"></div></div>
-<div class="candle"><div class="flame"></div></div>
-<div class="candle"><div class="flame"></div></div>
-<div class="candle"><div class="flame"></div></div>
-</div>
-</div>
-
-<button onclick="playMusic()">Tap to Play Our Song 🎵</button>
-
-</div>
-
-<audio id="bgMusic">
-<source src="song.mp3" type="audio/mpeg">
-</audio>
-
-<script>
-
-/* COUNTDOWN */
-
-const targetDate = new Date("March 14, 2026 00:20:00").getTime();
-
-const timer = setInterval(function(){
-
-const now = new Date().getTime();
-const distance = targetDate - now;
-
-const days = Math.floor(distance/(1000*60*60*24));
-const hours = Math.floor((distance%(1000*60*60*24))/(1000*60*60));
-const minutes = Math.floor((distance%(1000*60*60))/(1000*60));
-const seconds = Math.floor((distance%(1000*60))/1000);
-
-document.getElementById("countdown").innerHTML =
-days+"d "+hours+"h "+minutes+"m "+seconds+"s";
-
-if(distance < 0){
-
-clearInterval(timer);
-
-document.getElementById("countdownScreen").style.display="none";
-
-launchFireworks();
-
-setTimeout(()=>{
-document.getElementById("mainPage").style.display="block";
-showMessages();
-},3000)
-
-}
-
-},1000);
-
-
-/* FIREWORKS */
-
-function launchFireworks(){
-
-for(let i=0;i<40;i++){
-
-let f=document.createElement("div");
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Happy Birthday Blossom ❤️</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-
-<style>
-
-body{
-margin:0;
-font-family:'Poppins',sans-serif;
-background:#020a2e;
-color:white;
-text-align:center;
-overflow-x:hidden;
-}
-
-/* MATRIX BACKGROUND */
-
-#matrix{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-z-index:0;
-}
-
-/* COUNTDOWN SCREEN */
-
-#countdownScreen{
-position:fixed;
-width:100%;
-height:100vh;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-z-index:2;
-background:#020a2e;
-}
-
-#countdown{
-font-size:48px;
-margin-top:20px;
-color:#ff6ec7;
-text-shadow:0 0 10px #ff6ec7;
-}
-
-/* MAIN PAGE */
-
-.container{
-position:relative;
-z-index:2;
-display:none;
-padding-bottom:100px;
-}
-
-/* BALLOONS */
-
-.balloon{
-width:70px;
-height:90px;
-border-radius:50%;
-position:fixed;
-bottom:-120px;
-box-shadow:inset -10px -15px 25px rgba(0,0,0,0.3);
-animation:float linear infinite;
-z-index:2;
-}
-
-.balloon:after{
-content:"";
-width:2px;
-height:50px;
-background:white;
-position:absolute;
-bottom:-50px;
-left:50%;
-}
-
-@keyframes float{
-0%{transform:translateY(0);}
-50%{transform:translateY(-65vh) translateX(10px);}
-100%{transform:translateY(-130vh) translateX(-10px);}
-}
-
-/* HEART */
-
-.heart{
-width:150px;
-height:150px;
-margin:40px auto;
-position:relative;
-}
-
-.heart:before,.heart:after{
-content:"";
-position:absolute;
-width:75px;
-height:120px;
-background:linear-gradient(145deg,#ff4d6d,#c9184a);
-border-radius:75px 75px 0 0;
-}
-
-.heart:before{
-left:75px;
-transform:rotate(-45deg);
-transform-origin:0 100%;
-}
-
-.heart:after{
-left:0;
-transform:rotate(45deg);
-transform-origin:100% 100%;
-}
-
-.heart.beat{
-animation:heartbeat 1s infinite;
-}
-
-@keyframes heartbeat{
-0%{transform:scale(1);}
-25%{transform:scale(1.15);}
-40%{transform:scale(1);}
-60%{transform:scale(1.15);}
-100%{transform:scale(1);}
-}
-
-/* HEADING */
-
-h1{
-font-family:'Playfair Display',serif;
-font-size:42px;
-color:#ff6ec7;
-text-shadow:0 0 10px #ff6ec7,0 0 20px #ff6ec7;
-}
-
-/* PHOTO */
-
-.photo-container{
-margin:40px 0;
-}
-
-.photo-container img{
-width:220px;
-border-radius:20px;
-box-shadow:0 20px 40px rgba(0,0,0,0.4);
-}
-
-/* MESSAGES */
-
-.message{
-opacity:0;
-transform:translateY(25px);
-transition:1s;
-line-height:1.9;
-margin-bottom:28px;
-font-size:17px;
-max-width:800px;
-margin-left:auto;
-margin-right:auto;
-}
-
-.message.show{
-opacity:1;
-transform:translateY(0);
-}
-
-/* CAKE */
-
-.cake{
-margin:60px auto;
-position:relative;
-width:220px;
-}
-
-.layer{
-height:60px;
-background:linear-gradient(145deg,#ff8fab,#ff4d6d);
-border-radius:25px;
-margin-bottom:-20px;
-}
-
-.layer.base{width:220px;}
-.layer.middle{width:160px;margin:0 auto;}
-.layer.top{width:120px;margin:0 auto;}
-
-.candles{
-position:absolute;
-top:-40px;
-left:50%;
-transform:translateX(-50%);
-display:flex;
-gap:12px;
-}
-
-.candle{
-width:16px;
-height:50px;
-background:white;
-border-radius:4px;
-position:relative;
-}
-
-.flame{
-width:12px;
-height:18px;
-background:orange;
-border-radius:50%;
-position:absolute;
-top:-18px;
-left:2px;
-}
-
-/* BUTTON */
-
-button{
-padding:14px 30px;
-background:#ff4d6d;
-border:none;
-color:white;
-border-radius:30px;
-font-size:16px;
-cursor:pointer;
-margin-top:40px;
-}
-
-</style>
-</head>
-
-<body>
-
 <canvas id="matrix"></canvas>
 
-<div id="countdownScreen">
-<h1>Countdown to Blossom's Birthday 💗</h1>
-<div id="countdown"></div>
+<div id="content">
+    <div id="countdown">3</div>
+    <h1 class="curved-text" id="birthdayTitle" style="display:none;">Happy 19th Birthday Blossom</h1>
+    <div id="birthdayMessage">
+        You walked into my life and turned ordinary days<br>
+        into memories I never want to forget...<br>
+        You make everything brighter and better.<br>
+        Happy Birthday, my love.
+    </div>
 </div>
 
-<div class="container" id="mainPage">
-
-<div class="balloon" style="left:10%;animation-duration:15s;background:#ff758f"></div>
-<div class="balloon" style="left:30%;animation-duration:18s;background:#ffd166"></div>
-<div class="balloon" style="left:50%;animation-duration:16s;background:#06d6a0"></div>
-<div class="balloon" style="left:70%;animation-duration:20s;background:#118ab2"></div>
-
-<h1>Happy 19th Birthday, Blossom ❤️</h1>
-
-<div class="heart"></div>
-
-<div class="photo-container">
-<img src="her.jpg">
-</div>
-
-<p class="message">To: My Best Friend💞, My Love❣️, My Dweeb🫠, My Nerd🤓, My four eyes😂, My 1️⃣... My Blossom ❤️</p>
-
-<p class="message">Happy 19th Birthday, my love 💕. Today I celebrate not just the day you were born, but the incredible woman you are becoming.</p>
-
-<p class="message">Your character, behaviour, flaws and everything about you are incredibly attractive. People like you are rare.</p>
-
-<p class="message">From the day we started talking, I wondered if the stars looked at us and thought “oh, they finally met.”</p>
-
-<p class="message">I truly believe you are walking toward something extraordinary.</p>
-
-<p class="message">Mathematically, you are an 11/10. Statistically rare.</p>
-
-<p class="message">Economically, scarcity increases value. There will never be another you.</p>
-
-<p class="message">I cherish you beyond measure. Happy Birthday again. 🎂</p>
-
-<div class="cake">
-<div class="layer top"></div>
-<div class="layer middle"></div>
-<div class="layer base"></div>
-
-<div class="candles">
-<div class="candle"><div class="flame"></div></div>
-<div class="candle"><div class="flame"></div></div>
-<div class="candle"><div class="flame"></div></div>
-<div class="candle"><div class="flame"></div></div>
-</div>
-</div>
-
-<button onclick="playMusic()">Tap to Play Our Song 🎵</button>
-
-</div>
-
-<audio id="bgMusic">
-<source src="song.mp3" type="audio/mpeg">
-</audio>
+<div id="hearts"></div>
 
 <script>
+    // Matrix rain
+    const canvas = document.getElementById('matrix');
+    const ctx = canvas.getContext('2d');
+    let width = canvas.width = window.innerWidth;
+    let height = canvas.height = window.innerHeight;
+    const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*";
+    const fontSize = 16;
+    const columns = Math.floor(width / fontSize);
+    const drops = [];
+    for (let x = 0; x < columns; x++) drops[x] = Math.random() * height;
 
-/* MATRIX RAIN */
+    function drawMatrix() {
+        ctx.fillStyle = "rgba(11,26,56,0.05)";
+        ctx.fillRect(0, 0, width, height);
+        ctx.fillStyle = "#ff69b4";
+        ctx.font = fontSize + "px monospace";
+        for (let i = 0; i < drops.length; i++) {
+            const text = letters[Math.floor(Math.random() * letters.length)];
+            ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+            if (drops[i] * fontSize > height && Math.random() > 0.975) drops[i] = 0;
+            drops[i]++;
+        }
+    }
+    setInterval(drawMatrix, 50);
+    window.addEventListener('resize', () => {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+    });
 
-const canvas=document.getElementById("matrix");
-const ctx=canvas.getContext("2d");
+    // Countdown
+    let countdownNum = 3;
+    const countdownEl = document.getElementById('countdown');
+    const titleEl = document.getElementById('birthdayTitle');
+    const messageEl = document.getElementById('birthdayMessage');
+    const heartsContainer = document.getElementById('hearts');
 
-canvas.height=window.innerHeight;
-canvas.width=window.innerWidth;
+    const countdownInterval = setInterval(() => {
+        countdownEl.textContent = countdownNum;
+        countdownNum--;
+        if (countdownNum < 0) {
+            clearInterval(countdownInterval);
+            countdownEl.style.display = 'none';
+            titleEl.style.display = 'block';
+            launchFireworks();
+            showMessageSequentially();
+            generateHearts();
+        }
+    }, 1000);
 
-const letters="♡♥BLOSSOM0123456789";
-const fontSize=16;
-const columns=canvas.width/fontSize;
+    // Fireworks (simple)
+    function launchFireworks() {
+        for (let i = 0; i < 50; i++) {
+            const fire = document.createElement('div');
+            fire.style.position = 'absolute';
+            fire.style.width = '5px';
+            fire.style.height = '5px';
+            fire.style.background = '#ff69b4';
+            fire.style.borderRadius = '50%';
+            fire.style.left = Math.random() * window.innerWidth + 'px';
+            fire.style.top = Math.random() * window.innerHeight + 'px';
+            document.body.appendChild(fire);
+            setTimeout(() => { fire.remove(); }, 2000);
+        }
+    }
 
-const drops=[];
+    // Sequential message display
+    function showMessageSequentially() {
+        const lines = messageEl.innerHTML.split('<br>');
+        messageEl.innerHTML = '';
+        messageEl.style.display = 'block';
+        let index = 0;
+        const interval = setInterval(() => {
+            if (index >= lines.length) clearInterval(interval);
+            else messageEl.innerHTML += lines[index] + '<br>';
+            index++;
+        }, 1000);
+    }
 
-for(let x=0;x<columns;x++){
-drops[x]=1;
-}
-
-function drawMatrix(){
-
-ctx.fillStyle="rgba(2,10,46,0.08)";
-ctx.fillRect(0,0,canvas.width,canvas.height);
-
-ctx.fillStyle="#ff6ec7";
-ctx.font=fontSize+"px monospace";
-
-for(let i=0;i<drops.length;i++){
-
-const text=letters[Math.floor(Math.random()*letters.length)];
-
-ctx.fillText(text,i*fontSize,drops[i]*fontSize);
-
-if(drops[i]*fontSize>canvas.height&&Math.random()>0.975){
-drops[i]=0;
-}
-
-drops[i]++;
-}
-
-}
-
-setInterval(drawMatrix,35);
-
-/* COUNTDOWN */
-
-const targetDate=new Date("March 21, 2026 00:00:00").getTime();
-
-const timer=setInterval(function(){
-
-const now=new Date().getTime();
-const distance=targetDate-now;
-
-const days=Math.floor(distance/(1000*60*60*24));
-const hours=Math.floor((distance%(1000*60*60*24))/(1000*60*60));
-const minutes=Math.floor((distance%(1000*60*60))/(1000*60));
-const seconds=Math.floor((distance%(1000*60))/1000);
-
-document.getElementById("countdown").innerHTML=
-days+"d "+hours+"h "+minutes+"m "+seconds+"s";
-
-if(distance<0){
-
-clearInterval(timer);
-
-document.getElementById("countdownScreen").style.display="none";
-document.getElementById("mainPage").style.display="block";
-
-showMessages();
-
-}
-
-},1000);
-
-/* MESSAGE SEQUENCE */
-
-function showMessages(){
-const msgs=document.querySelectorAll(".message");
-msgs.forEach((m,i)=>{
-setTimeout(()=>{m.classList.add("show");},i*2000);
-});
-}
-
-/* MUSIC */
-
-function playMusic(){
-document.getElementById("bgMusic").play();
-document.querySelector(".heart").classList.add("beat");
-}
-
+    // Floating hearts
+    function generateHearts() {
+        for (let i = 0; i < 20; i++) {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.style.left = Math.random() * window.innerWidth + 'px';
+            heart.style.animationDuration = (3 + Math.random()*2) + 's';
+            heartsContainer.appendChild(heart);
+        }
+    }
 </script>
-
 </body>
 </html>
