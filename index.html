@@ -3,201 +3,442 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Happy Birthday My Blossom ❤️</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<title>Happy Birthday Blossom ❤️</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
 <style>
-/* General Styles */
-body{margin:0;font-family:'Poppins',sans-serif;background:#240046;overflow:hidden;color:white;text-align:center;}
-canvas#matrix{position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;}
 
-/* Countdown */
-#countdown{font-family:'Playfair Display',serif;font-size:80px;margin-top:30vh;color:#ffb6c1;text-shadow:0 0 20px #ff4d6d;}
+body{
+margin:0;
+background:#2d006b;
+color:white;
+font-family:Poppins;
+overflow:hidden;
+text-align:center;
+}
 
-/* Fireworks */
-#fireworks{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:1000;}
+canvas{
+position:fixed;
+top:0;
+left:0;
+z-index:-1;
+}
 
-/* Birthday Reveal */
-#reveal{display:none;animation:fadein 1s forwards;}
+/* countdown */
 
-/* Heart */
-.heart{width:150px;height:150px;margin:40px auto;position:relative;}
-.heart:before,.heart:after{content:"";position:absolute;width:75px;height:120px;background:linear-gradient(145deg,#ff4d6d,#c9184a);border-radius:75px 75px 0 0;}
-.heart:before{left:75px;transform:rotate(-45deg);transform-origin:0 100%;}
-.heart:after{left:0;transform:rotate(45deg);transform-origin:100% 100%;}
-.heart.beat{animation:heartbeat 1s infinite;}
-@keyframes heartbeat{0%{transform:scale(1);}25%{transform:scale(1.15);}40%{transform:scale(1);}60%{transform:scale(1.15);}100%{transform:scale(1);}}
+#countdown{
+font-size:50px;
+margin-top:40vh;
+color:pink;
+}
 
-/* Messages */
-.message{opacity:0;transform:translateY(25px);transition:1s;line-height:1.9;margin:20px auto;font-size:18px;max-width:700px;}
-.message.show{opacity:1;transform:translateY(0);}
+/* fireworks */
 
-/* Photo Book */
-#albumTitle{display:none;font-size:40px;color:#ffb6c1;margin-top:40px;}
-.book{display:none;position:relative;width:600px;height:400px;margin:40px auto;perspective:2000px;}
-.page{position:absolute;width:100%;height:100%;background:white;display:flex;justify-content:space-around;align-items:center;transform-origin:left;transition:transform 1.5s;box-shadow:0 15px 30px rgba(0,0,0,0.6);border-radius:10px;}
-.page img{width:250px;height:320px;object-fit:cover;border-radius:10px;}
-.page.flipped{transform:rotateY(-180deg);}
+#fireworks{
+position:fixed;
+width:100%;
+height:100%;
+pointer-events:none;
+}
 
-/* FadeIn */
-@keyframes fadein{from{opacity:0;} to{opacity:1;}}
+/* curved birthday title */
 
-/* 3-2-1 Countdown */
-#dramaticCount{display:none;font-size:100px;color:#ffb6c1;text-shadow:0 0 20px #ff4d6d;margin-top:20vh;}
+#birthdayTitle{
+display:none;
+justify-content:center;
+align-items:center;
+height:100vh;
+position:absolute;
+width:100%;
+}
+
+#birthdayTitle text{
+font-family:'Great Vibes',cursive;
+font-size:80px;
+fill:#ffb6c1;
+font-weight:bold;
+text-shadow:0 0 15px hotpink,0 0 40px hotpink;
+animation:glow 2s infinite alternate;
+}
+
+@keyframes glow{
+from{filter:drop-shadow(0 0 10px pink);}
+to{filter:drop-shadow(0 0 30px hotpink);}
+}
+
+/* message section */
+
+#messages{
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+height:100vh;
+padding:20px;
+}
+
+.message{
+max-width:700px;
+font-size:20px;
+line-height:1.8;
+opacity:0;
+transform:translateY(20px);
+transition:1s;
+}
+
+.message.show{
+opacity:1;
+transform:translateY(0);
+}
+
+/* album */
+
+#album{
+display:none;
+margin-top:40px;
+}
+
+.book{
+width:600px;
+height:400px;
+margin:auto;
+position:relative;
+perspective:2000px;
+}
+
+.page{
+position:absolute;
+width:100%;
+height:100%;
+background:white;
+display:flex;
+justify-content:space-around;
+align-items:center;
+transform-origin:left;
+transition:transform 1.5s;
+border-radius:10px;
+box-shadow:0 15px 30px rgba(0,0,0,0.6);
+}
+
+.page img{
+width:250px;
+height:320px;
+object-fit:cover;
+border-radius:10px;
+}
+
+.page.flipped{
+transform:rotateY(-180deg);
+}
+
 </style>
 </head>
+
 <body>
 
 <canvas id="matrix"></canvas>
-<div id="fireworks"></div>
 
-<!-- Countdown before birthday -->
 <div id="countdown"></div>
 
-<!-- Reveal -->
-<div id="reveal">
-  <div id="dramaticCount">3</div>
-  <h1>Happy Birthday My Love ❤️</h1>
-  <div class="heart"></div>
+<div id="fireworks"></div>
 
-  <!-- Messages -->
-  <div id="messages">
-    <p class="message">To: My Best Friend 💞, My Love ❣️, My Dweeb 🫠, My Nerd 🤓, My four eyes 😂, My 1️⃣…My 10️⃣, My Blossom ❤️</p>
-    <p class="message">Happy 19th Birthday, my love 💕. Today, I celebrate not just the day you were born, but the incredible woman you are becoming…</p>
-    <p class="message">“I’ve always thought attraction is more than just looks… People like you are rare. And of course… you’re very pretty too.”</p>
-    <p class="message">And perhaps they were right. Because from that moment, something about you felt rare and meaningful…</p>
-    <p class="message">As it is written in Jeremiah 29:11: “For I know the plans I have for you… plans to give you hope and a future.”</p>
-    <p class="message">When I look at you — your ambition, your mind, your kindness — I truly believe you are walking toward something extraordinary…</p>
-    <p class="message">And your beauty — oh, your beauty! Those alluring eyes, that perfect smile…</p>
-    <p class="message">Mathematically, you are an 11/10… That’s how rare and extraordinary you are 🤩</p>
-    <p class="message">And if Economics is the study of value and scarcity… You are priceless. Scarcity increases value. You are the only edition 🥹</p>
-    <p class="message">Leonardo da Vinci once said: “Simplicity is the ultimate sophistication.” That’s you 😎</p>
-    <p class="message">In physics, imagination turns possibility into reality… Every thought of yours is like the perfect equation ❤️</p>
-    <p class="message">You are what art itself would call a “pièce de résistance” 😍</p>
-    <p class="message">I cherish you beyond measure. I love you in ways English cannot fully express…</p>
-    <p class="message">Grow in grace, my friend, my best friend, my love. Happy Birthday once again 🎂</p>
-    <p class="message">PS: I learned coding because of you… It is endless 🤍</p>
-  </div>
+<!-- CURVED TITLE -->
 
-  <h2 id="albumTitle">Open Your Birthday Album ❤️</h2>
-  <div class="book" id="book">
-    <div class="page"><img src="1.jpg"><img src="2.jpg"></div>
-    <div class="page"><img src="3.jpg"><img src="4.jpg"></div>
-    <div class="page"><img src="5.jpg"><img src="6.jpg"></div>
-    <div class="page"><img src="7.jpg"><img src="8.jpg"></div>
-  </div>
+<div id="birthdayTitle">
+
+<svg viewBox="0 0 900 300">
+
+<path id="curve" d="M100,200 Q450,40 800,200" fill="transparent"/>
+
+<text width="900">
+<textPath href="#curve" startOffset="50%" text-anchor="middle">
+Happy 19th Birthday Blossom ❤️
+</textPath>
+</text>
+
+</svg>
+
 </div>
 
-<audio id="bgMusic" loop><source src="love_story_indila.mp3" type="audio/mp3"></audio>
+<!-- MESSAGES -->
+
+<div id="messages" style="display:none">
+
+<p class="message">To my Best Friend, My Love, My Dweeb, My Nerd, My Blossom ❤️</p>
+
+<p class="message">
+Happy 19th Birthday to you, my love.
+As it is written in Jeremiah 29:11,
+“For I know the plans I have for you,” declares the Lord,
+plans to prosper you and not to harm you,
+plans to give you hope and a future.
+</p>
+
+<p class="message">
+Today I celebrate not just the day you were born,
+but the woman you are becoming.
+</p>
+
+<p class="message">
+I admire your intellect at such a young age.
+It challenges me and inspires me to become better.
+</p>
+
+<p class="message">
+Mathematically you are an 11/10.
+That’s how rare you are.
+</p>
+
+<p class="message">
+If Economics is the study of value and scarcity,
+then you are priceless.
+</p>
+
+<p class="message">
+Leonardo da Vinci said:
+"Simplicity is the ultimate sophistication."
+That is you.
+</p>
+
+<p class="message">
+In physics imagination turns possibility into reality.
+Every thought of yours feels like the perfect equation.
+</p>
+
+<p class="message">
+I cherish you deeply.
+Happy Birthday my Blossom ❤️
+</p>
+
+</div>
+
+<!-- PHOTO BOOK -->
+
+<div id="album">
+
+<h2>Our Memories ❤️</h2>
+
+<div class="book" id="book">
+
+<div class="page">
+<img src="1.jpg">
+<img src="2.jpg">
+</div>
+
+<div class="page">
+<img src="3.jpg">
+<img src="4.jpg">
+</div>
+
+<div class="page">
+<img src="5.jpg">
+<img src="6.jpg">
+</div>
+
+<div class="page">
+<img src="7.jpg">
+<img src="8.jpg">
+</div>
+
+</div>
+
+</div>
+
+<audio id="music" autoplay loop>
+<source src="love_story_indila.mp3" type="audio/mp3">
+</audio>
 
 <script>
-// ------------------ Configurable Unlock Date ------------------
-let unlockDate = new Date('2026-03-13T23:40:00'); // Change this for testing
 
-// ------------------ Countdown Before Birthday ------------------
-const countdownEl = document.getElementById("countdown");
+/* CHANGE THIS FOR TESTING */
+
+let unlockDate = new Date("2026-03-21T00:00:00");
+
+/* countdown */
+
+const countdown = document.getElementById("countdown");
+
 function updateCountdown(){
-  const now = new Date();
-  let diff = unlockDate - now;
-  if(diff <= 0){
-    countdownEl.style.display="none";
-    startFireworks();
-  } else {
-    let days=Math.floor(diff/1000/60/60/24);
-    let hours=Math.floor((diff/1000/60/60)%24);
-    let mins=Math.floor((diff/1000/60)%60);
-    let secs=Math.floor((diff/1000)%60);
-    countdownEl.innerHTML=`${days}d : ${hours}h : ${mins}m : ${secs}s`;
-  }
-}
-setInterval(updateCountdown,1000);
-updateCountdown();
 
-// ------------------ Matrix Rain ------------------
+let now = new Date();
+let diff = unlockDate - now;
+
+if(diff <= 0){
+
+countdown.style.display="none";
+startFireworks();
+
+return;
+}
+
+let days = Math.floor(diff/1000/60/60/24);
+let hours = Math.floor(diff/1000/60/60 %24);
+let minutes = Math.floor(diff/1000/60 %60);
+let seconds = Math.floor(diff/1000 %60);
+
+countdown.innerHTML =
+days+"d : "+hours+"h : "+minutes+"m : "+seconds+"s";
+
+}
+
+setInterval(updateCountdown,1000);
+
+
+/* matrix rain */
+
 const canvas=document.getElementById("matrix");
 const ctx=canvas.getContext("2d");
-canvas.height=window.innerHeight; canvas.width=window.innerWidth;
-const letters="01❤";
-const fontSize=14; const columns=canvas.width/fontSize; const drops=[];
-for(let i=0;i<columns;i++)drops[i]=1;
-function drawMatrix(){
-  ctx.fillStyle="rgba(36,0,70,0.05)";
-  ctx.fillRect(0,0,canvas.width,canvas.height);
-  ctx.fillStyle="pink"; ctx.font=fontSize+"px monospace";
-  for(let i=0;i<drops.length;i++){
-    const text=letters[Math.floor(Math.random()*letters.length)];
-    ctx.fillText(text,i*fontSize,drops[i]*fontSize);
-    if(drops[i]*fontSize>canvas.height && Math.random()>0.975)drops[i]=0;
-    drops[i]++;
-  }
-}
-setInterval(drawMatrix,33);
 
-// ------------------ Fireworks ------------------
+canvas.height=window.innerHeight;
+canvas.width=window.innerWidth;
+
+let letters="01❤";
+letters=letters.split("");
+
+let fontSize=14;
+let columns=canvas.width/fontSize;
+
+let drops=[];
+
+for(let i=0;i<columns;i++) drops[i]=1;
+
+function draw(){
+
+ctx.fillStyle="rgba(45,0,107,0.05)";
+ctx.fillRect(0,0,canvas.width,canvas.height);
+
+ctx.fillStyle="pink";
+ctx.font=fontSize+"px monospace";
+
+for(let i=0;i<drops.length;i++){
+
+let text=letters[Math.floor(Math.random()*letters.length)];
+
+ctx.fillText(text,i*fontSize,drops[i]*fontSize);
+
+if(drops[i]*fontSize>canvas.height && Math.random()>0.975)
+drops[i]=0;
+
+drops[i]++;
+
+}
+
+}
+
+setInterval(draw,33);
+
+
+/* fireworks */
+
 function startFireworks(){
-  const fireworksEl=document.getElementById("fireworks");
-  fireworksEl.innerHTML="";
-  for(let i=0;i<15;i++){
-    let div=document.createElement("div");
-    div.style.width=div.style.height="5px";
-    div.style.background="pink";
-    div.style.position="absolute";
-    div.style.left=Math.random()*window.innerWidth+"px";
-    div.style.top=Math.random()*window.innerHeight+"px";
-    div.style.borderRadius="50%";
-    div.style.animation=`fw${i} 1s ease-out`;
-    fireworksEl.appendChild(div);
-  }
-  setTimeout(startReveal,2000);
+
+let fw=document.getElementById("fireworks");
+
+for(let i=0;i<30;i++){
+
+let dot=document.createElement("div");
+
+dot.style.position="absolute";
+dot.style.width="6px";
+dot.style.height="6px";
+dot.style.background="pink";
+dot.style.borderRadius="50%";
+
+dot.style.left=Math.random()*window.innerWidth+"px";
+dot.style.top=Math.random()*window.innerHeight+"px";
+
+fw.appendChild(dot);
+
 }
 
-// ------------------ Reveal Section ------------------
-function startReveal(){
-  document.getElementById("fireworks").style.display="none";
-  document.getElementById("reveal").style.display="block";
-  dramaticCountdown();
+setTimeout(showTitle,3000);
+
 }
 
-// ------------------ 3-2-1 Countdown ------------------
-function dramaticCountdown(){
-  const dc=document.getElementById("dramaticCount");
-  dc.style.display="block";
-  let count=3;
-  const timer=setInterval(()=>{
-    dc.innerHTML=count>0?count:"🎉";
-    count--;
-    if(count<0){clearInterval(timer); dc.style.display="none"; startMessages();}
-  },1000);
+
+/* show curved title */
+
+function showTitle(){
+
+document.getElementById("birthdayTitle").style.display="flex";
+
+setTimeout(startMessages,4000);
+
 }
 
-// ------------------ Sequential Messages ------------------
+
+/* messages */
+
 function startMessages(){
-  const msgs=document.querySelectorAll(".message");
-  let i=0;
-  function showNext(){
-    if(i>=msgs.length){showAlbum(); return;}
-    let msg=msgs[i]; msg.classList.add("show");
-    let words=msg.innerText.split(" ").length;
-    let time=(words*350)+1000; // reading time estimate
-    setTimeout(()=>{msg.classList.remove("show"); i++; showNext();},time);
-  }
-  showNext();
+
+document.getElementById("birthdayTitle").style.display="none";
+
+let msgBox=document.getElementById("messages");
+msgBox.style.display="flex";
+
+let messages=document.querySelectorAll(".message");
+
+let i=0;
+
+function next(){
+
+if(i>=messages.length){
+
+showAlbum();
+return;
+
 }
 
-// ------------------ Photo Book ------------------
+messages[i].classList.add("show");
+
+let words=messages[i].innerText.split(" ").length;
+let time=(words*350)+1000;
+
+setTimeout(()=>{
+
+messages[i].classList.remove("show");
+i++;
+next();
+
+},time);
+
+}
+
+next();
+
+}
+
+
+/* album */
+
 function showAlbum(){
-  document.getElementById("albumTitle").style.display="block";
-  document.getElementById("book").style.display="block";
-  const pages=document.querySelectorAll(".page"); let idx=0;
-  function flip(){ if(idx>=pages.length)return; pages[idx].classList.add("flipped"); idx++; setTimeout(flip,4000);}
-  setTimeout(flip,2000);
+
+document.getElementById("messages").style.display="none";
+
+document.getElementById("album").style.display="block";
+
+let pages=document.querySelectorAll(".page");
+
+let i=0;
+
+function flip(){
+
+if(i>=pages.length) return;
+
+pages[i].classList.add("flipped");
+
+i++;
+
+setTimeout(flip,3000);
+
 }
 
-// ------------------ Music + Heart Beat ------------------
-function playMusic(){
-  document.getElementById("bgMusic").play();
-  document.querySelector(".heart").classList.add("beat");
+setTimeout(flip,2000);
+
 }
-window.onload=playMusic;
+
 </script>
+
 </body>
-                                                                                                               </html>
+</html>                                                                                                               </ht
