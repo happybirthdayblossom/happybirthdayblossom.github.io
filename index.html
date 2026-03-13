@@ -23,121 +23,7 @@ body{
 #countdownScreen{
   position:fixed;
   width:100%;
-  height:100vh;
-  background:black;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  z-index:9999;
-}
 
-#countdown{
-  font-size:50px;
-  font-weight:bold;
-  margin-top:20px;
-}
-
-/* FIREWORK */
-
-.firework{
-  position:fixed;
-  width:5px;
-  height:5px;
-  border-radius:50%;
-  animation:explode 1s ease-out forwards;
-}
-
-@keyframes explode{
-  from{transform:scale(1); opacity:1;}
-  to{transform:scale(20); opacity:0;}
-}
-
-/* MAIN PAGE */
-
-#mainPage{
-  display:none;
-  background: radial-gradient(circle at top, #ffccd5, #b5179e, #240046);
-  padding-bottom:100px;
-}
-
-/* Confetti */
-
-.confetti{
-  position:fixed;
-  width:10px;
-  height:10px;
-  top:-10px;
-  animation:fall linear infinite;
-  opacity:0.8;
-  z-index:999;
-}
-
-@keyframes fall{
-  to{transform:translateY(110vh) rotate(360deg);}
-}
-
-/* Balloons */
-
-.balloon{
-  width:70px;
-  height:90px;
-  border-radius:50%;
-  position:fixed;
-  bottom:-120px;
-  box-shadow:inset -10px -15px 25px rgba(0,0,0,0.3);
-  animation:float linear infinite;
-}
-
-.balloon:after{
-  content:"";
-  width:2px;
-  height:50px;
-  background:white;
-  position:absolute;
-  bottom:-50px;
-  left:50%;
-}
-
-@keyframes float{
-0%{transform:translateY(0);}
-50%{transform:translateY(-65vh) translateX(10px);}
-100%{transform:translateY(-130vh) translateX(-10px);}
-}
-
-/* HEART */
-
-.heart{
-  width:150px;
-  height:150px;
-  margin:40px auto;
-  position:relative;
-}
-
-.heart:before,.heart:after{
-  content:"";
-  position:absolute;
-  width:75px;
-  height:120px;
-  background:linear-gradient(145deg,#ff4d6d,#c9184a);
-  border-radius:75px 75px 0 0;
-}
-
-.heart:before{
-  left:75px;
-  transform:rotate(-45deg);
-  transform-origin:0 100%;
-}
-
-.heart:after{
-  left:0;
-  transform:rotate(45deg);
-  transform-origin:100% 100%;
-}
-
-.heart.beat{
-  animation:heartbeat 1s infinite;
-}
 
 @keyframes heartbeat{
 0%{transform:scale(1);}
@@ -340,43 +226,385 @@ function launchFireworks(){
 for(let i=0;i<40;i++){
 
 let f=document.createElement("div");
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-f.className="firework";
+<title>Happy Birthday Blossom ❤️</title>
 
-f.style.left=Math.random()*100+"vw";
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
-f.style.top=Math.random()*80+"vh";
+<style>
 
-f.style.background=["#ff4d6d","#ffd166","#06d6a0","#118ab2"][Math.floor(Math.random()*4)];
+body{
+margin:0;
+font-family:'Poppins',sans-serif;
+background:#020a2e;
+color:white;
+text-align:center;
+overflow-x:hidden;
+}
 
-document.body.appendChild(f);
+/* MATRIX BACKGROUND */
 
+#matrix{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+z-index:0;
+}
+
+/* COUNTDOWN SCREEN */
+
+#countdownScreen{
+position:fixed;
+width:100%;
+height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+z-index:2;
+background:#020a2e;
+}
+
+#countdown{
+font-size:48px;
+margin-top:20px;
+color:#ff6ec7;
+text-shadow:0 0 10px #ff6ec7;
+}
+
+/* MAIN PAGE */
+
+.container{
+position:relative;
+z-index:2;
+display:none;
+padding-bottom:100px;
+}
+
+/* BALLOONS */
+
+.balloon{
+width:70px;
+height:90px;
+border-radius:50%;
+position:fixed;
+bottom:-120px;
+box-shadow:inset -10px -15px 25px rgba(0,0,0,0.3);
+animation:float linear infinite;
+z-index:2;
+}
+
+.balloon:after{
+content:"";
+width:2px;
+height:50px;
+background:white;
+position:absolute;
+bottom:-50px;
+left:50%;
+}
+
+@keyframes float{
+0%{transform:translateY(0);}
+50%{transform:translateY(-65vh) translateX(10px);}
+100%{transform:translateY(-130vh) translateX(-10px);}
+}
+
+/* HEART */
+
+.heart{
+width:150px;
+height:150px;
+margin:40px auto;
+position:relative;
+}
+
+.heart:before,.heart:after{
+content:"";
+position:absolute;
+width:75px;
+height:120px;
+background:linear-gradient(145deg,#ff4d6d,#c9184a);
+border-radius:75px 75px 0 0;
+}
+
+.heart:before{
+left:75px;
+transform:rotate(-45deg);
+transform-origin:0 100%;
+}
+
+.heart:after{
+left:0;
+transform:rotate(45deg);
+transform-origin:100% 100%;
+}
+
+.heart.beat{
+animation:heartbeat 1s infinite;
+}
+
+@keyframes heartbeat{
+0%{transform:scale(1);}
+25%{transform:scale(1.15);}
+40%{transform:scale(1);}
+60%{transform:scale(1.15);}
+100%{transform:scale(1);}
+}
+
+/* HEADING */
+
+h1{
+font-family:'Playfair Display',serif;
+font-size:42px;
+color:#ff6ec7;
+text-shadow:0 0 10px #ff6ec7,0 0 20px #ff6ec7;
+}
+
+/* PHOTO */
+
+.photo-container{
+margin:40px 0;
+}
+
+.photo-container img{
+width:220px;
+border-radius:20px;
+box-shadow:0 20px 40px rgba(0,0,0,0.4);
+}
+
+/* MESSAGES */
+
+.message{
+opacity:0;
+transform:translateY(25px);
+transition:1s;
+line-height:1.9;
+margin-bottom:28px;
+font-size:17px;
+max-width:800px;
+margin-left:auto;
+margin-right:auto;
+}
+
+.message.show{
+opacity:1;
+transform:translateY(0);
+}
+
+/* CAKE */
+
+.cake{
+margin:60px auto;
+position:relative;
+width:220px;
+}
+
+.layer{
+height:60px;
+background:linear-gradient(145deg,#ff8fab,#ff4d6d);
+border-radius:25px;
+margin-bottom:-20px;
+}
+
+.layer.base{width:220px;}
+.layer.middle{width:160px;margin:0 auto;}
+.layer.top{width:120px;margin:0 auto;}
+
+.candles{
+position:absolute;
+top:-40px;
+left:50%;
+transform:translateX(-50%);
+display:flex;
+gap:12px;
+}
+
+.candle{
+width:16px;
+height:50px;
+background:white;
+border-radius:4px;
+position:relative;
+}
+
+.flame{
+width:12px;
+height:18px;
+background:orange;
+border-radius:50%;
+position:absolute;
+top:-18px;
+left:2px;
+}
+
+/* BUTTON */
+
+button{
+padding:14px 30px;
+background:#ff4d6d;
+border:none;
+color:white;
+border-radius:30px;
+font-size:16px;
+cursor:pointer;
+margin-top:40px;
+}
+
+</style>
+</head>
+
+<body>
+
+<canvas id="matrix"></canvas>
+
+<div id="countdownScreen">
+<h1>Countdown to Blossom's Birthday 💗</h1>
+<div id="countdown"></div>
+</div>
+
+<div class="container" id="mainPage">
+
+<div class="balloon" style="left:10%;animation-duration:15s;background:#ff758f"></div>
+<div class="balloon" style="left:30%;animation-duration:18s;background:#ffd166"></div>
+<div class="balloon" style="left:50%;animation-duration:16s;background:#06d6a0"></div>
+<div class="balloon" style="left:70%;animation-duration:20s;background:#118ab2"></div>
+
+<h1>Happy 19th Birthday, Blossom ❤️</h1>
+
+<div class="heart"></div>
+
+<div class="photo-container">
+<img src="her.jpg">
+</div>
+
+<p class="message">To: My Best Friend💞, My Love❣️, My Dweeb🫠, My Nerd🤓, My four eyes😂, My 1️⃣... My Blossom ❤️</p>
+
+<p class="message">Happy 19th Birthday, my love 💕. Today I celebrate not just the day you were born, but the incredible woman you are becoming.</p>
+
+<p class="message">Your character, behaviour, flaws and everything about you are incredibly attractive. People like you are rare.</p>
+
+<p class="message">From the day we started talking, I wondered if the stars looked at us and thought “oh, they finally met.”</p>
+
+<p class="message">I truly believe you are walking toward something extraordinary.</p>
+
+<p class="message">Mathematically, you are an 11/10. Statistically rare.</p>
+
+<p class="message">Economically, scarcity increases value. There will never be another you.</p>
+
+<p class="message">I cherish you beyond measure. Happy Birthday again. 🎂</p>
+
+<div class="cake">
+<div class="layer top"></div>
+<div class="layer middle"></div>
+<div class="layer base"></div>
+
+<div class="candles">
+<div class="candle"><div class="flame"></div></div>
+<div class="candle"><div class="flame"></div></div>
+<div class="candle"><div class="flame"></div></div>
+<div class="candle"><div class="flame"></div></div>
+</div>
+</div>
+
+<button onclick="playMusic()">Tap to Play Our Song 🎵</button>
+
+</div>
+
+<audio id="bgMusic">
+<source src="song.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+
+/* MATRIX RAIN */
+
+const canvas=document.getElementById("matrix");
+const ctx=canvas.getContext("2d");
+
+canvas.height=window.innerHeight;
+canvas.width=window.innerWidth;
+
+const letters="♡♥BLOSSOM0123456789";
+const fontSize=16;
+const columns=canvas.width/fontSize;
+
+const drops=[];
+
+for(let x=0;x<columns;x++){
+drops[x]=1;
+}
+
+function drawMatrix(){
+
+ctx.fillStyle="rgba(2,10,46,0.08)";
+ctx.fillRect(0,0,canvas.width,canvas.height);
+
+ctx.fillStyle="#ff6ec7";
+ctx.font=fontSize+"px monospace";
+
+for(let i=0;i<drops.length;i++){
+
+const text=letters[Math.floor(Math.random()*letters.length)];
+
+ctx.fillText(text,i*fontSize,drops[i]*fontSize);
+
+if(drops[i]*fontSize>canvas.height&&Math.random()>0.975){
+drops[i]=0;
+}
+
+drops[i]++;
 }
 
 }
 
+setInterval(drawMatrix,35);
 
-/* CONFETTI */
+/* COUNTDOWN */
 
-for(let i=0;i<50;i++){
-let c=document.createElement("div");
-c.className="confetti";
-c.style.left=Math.random()*100+"vw";
-c.style.animationDuration=(Math.random()*3+2)+"s";
-c.style.background=["#ff4d6d","#ffd166","#06d6a0","#118ab2"][Math.floor(Math.random()*4)];
-document.body.appendChild(c);
+const targetDate=new Date("March 21, 2026 00:00:00").getTime();
+
+const timer=setInterval(function(){
+
+const now=new Date().getTime();
+const distance=targetDate-now;
+
+const days=Math.floor(distance/(1000*60*60*24));
+const hours=Math.floor((distance%(1000*60*60*24))/(1000*60*60));
+const minutes=Math.floor((distance%(1000*60*60))/(1000*60));
+const seconds=Math.floor((distance%(1000*60))/1000);
+
+document.getElementById("countdown").innerHTML=
+days+"d "+hours+"h "+minutes+"m "+seconds+"s";
+
+if(distance<0){
+
+clearInterval(timer);
+
+document.getElementById("countdownScreen").style.display="none";
+document.getElementById("mainPage").style.display="block";
+
+showMessages();
+
 }
 
+},1000);
 
-/* MESSAGE ANIMATION */
+/* MESSAGE SEQUENCE */
 
 function showMessages(){
 const msgs=document.querySelectorAll(".message");
 msgs.forEach((m,i)=>{
-setTimeout(()=>{m.classList.add("show");}, i*1800);
+setTimeout(()=>{m.classList.add("show");},i*2000);
 });
 }
-
 
 /* MUSIC */
 
@@ -388,4 +616,4 @@ document.querySelector(".heart").classList.add("beat");
 </script>
 
 </body>
-</html>                                                                                                               </ht
+</html>
