@@ -3,133 +3,245 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Happy Birthday Blossom ❤️</title>
+<title>Happy Birthday My Blossom ❤️</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
 
 body{
-margin:0;
-background:#2d006b;
-color:white;
-font-family:Poppins;
-overflow:hidden;
-text-align:center;
+  margin:0;
+  font-family:'Poppins',sans-serif;
+  background:#000;
+  color:white;
+  text-align:center;
+  overflow-x:hidden;
 }
 
-canvas{
-position:fixed;
-top:0;
-left:0;
-z-index:-1;
-}
+/* COUNTDOWN SCREEN */
 
-/* countdown */
+#countdownScreen{
+  position:fixed;
+  width:100%;
+  height:100vh;
+  background:black;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  z-index:9999;
+}
 
 #countdown{
-font-size:50px;
-margin-top:40vh;
-color:pink;
+  font-size:50px;
+  font-weight:bold;
+  margin-top:20px;
 }
 
-/* fireworks */
+/* FIREWORK */
 
-#fireworks{
-position:fixed;
-width:100%;
-height:100%;
-pointer-events:none;
+.firework{
+  position:fixed;
+  width:5px;
+  height:5px;
+  border-radius:50%;
+  animation:explode 1s ease-out forwards;
 }
 
-/* curved birthday title */
-
-#birthdayTitle{
-display:none;
-justify-content:center;
-align-items:center;
-height:100vh;
-position:absolute;
-width:100%;
+@keyframes explode{
+  from{transform:scale(1); opacity:1;}
+  to{transform:scale(20); opacity:0;}
 }
 
-#birthdayTitle text{
-font-family:'Great Vibes',cursive;
-font-size:80px;
-fill:#ffb6c1;
-font-weight:bold;
-text-shadow:0 0 15px hotpink,0 0 40px hotpink;
-animation:glow 2s infinite alternate;
+/* MAIN PAGE */
+
+#mainPage{
+  display:none;
+  background: radial-gradient(circle at top, #ffccd5, #b5179e, #240046);
+  padding-bottom:100px;
 }
 
-@keyframes glow{
-from{filter:drop-shadow(0 0 10px pink);}
-to{filter:drop-shadow(0 0 30px hotpink);}
+/* Confetti */
+
+.confetti{
+  position:fixed;
+  width:10px;
+  height:10px;
+  top:-10px;
+  animation:fall linear infinite;
+  opacity:0.8;
+  z-index:999;
 }
 
-/* message section */
-
-#messages{
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-height:100vh;
-padding:20px;
+@keyframes fall{
+  to{transform:translateY(110vh) rotate(360deg);}
 }
+
+/* Balloons */
+
+.balloon{
+  width:70px;
+  height:90px;
+  border-radius:50%;
+  position:fixed;
+  bottom:-120px;
+  box-shadow:inset -10px -15px 25px rgba(0,0,0,0.3);
+  animation:float linear infinite;
+}
+
+.balloon:after{
+  content:"";
+  width:2px;
+  height:50px;
+  background:white;
+  position:absolute;
+  bottom:-50px;
+  left:50%;
+}
+
+@keyframes float{
+0%{transform:translateY(0);}
+50%{transform:translateY(-65vh) translateX(10px);}
+100%{transform:translateY(-130vh) translateX(-10px);}
+}
+
+/* HEART */
+
+.heart{
+  width:150px;
+  height:150px;
+  margin:40px auto;
+  position:relative;
+}
+
+.heart:before,.heart:after{
+  content:"";
+  position:absolute;
+  width:75px;
+  height:120px;
+  background:linear-gradient(145deg,#ff4d6d,#c9184a);
+  border-radius:75px 75px 0 0;
+}
+
+.heart:before{
+  left:75px;
+  transform:rotate(-45deg);
+  transform-origin:0 100%;
+}
+
+.heart:after{
+  left:0;
+  transform:rotate(45deg);
+  transform-origin:100% 100%;
+}
+
+.heart.beat{
+  animation:heartbeat 1s infinite;
+}
+
+@keyframes heartbeat{
+0%{transform:scale(1);}
+25%{transform:scale(1.15);}
+40%{transform:scale(1);}
+60%{transform:scale(1.15);}
+100%{transform:scale(1);}
+}
+
+/* HEADING */
+
+h1{
+  font-family:'Playfair Display',serif;
+  font-size:42px;
+  margin-bottom:30px;
+}
+
+/* MESSAGES */
 
 .message{
-max-width:700px;
-font-size:20px;
-line-height:1.8;
-opacity:0;
-transform:translateY(20px);
-transition:1s;
+  opacity:0;
+  transform:translateY(25px);
+  transition:1s;
+  line-height:1.9;
+  margin-bottom:28px;
+  font-size:17px;
+  max-width:800px;
+  margin-left:auto;
+  margin-right:auto;
 }
 
 .message.show{
-opacity:1;
-transform:translateY(0);
+  opacity:1;
+  transform:translateY(0);
 }
 
-/* album */
+/* PHOTO */
 
-#album{
-display:none;
-margin-top:40px;
+.photo-container{
+  margin:40px 0;
 }
 
-.book{
-width:600px;
-height:400px;
-margin:auto;
-position:relative;
-perspective:2000px;
+.photo-container img{
+  width:220px;
+  border-radius:20px;
 }
 
-.page{
-position:absolute;
-width:100%;
-height:100%;
-background:white;
-display:flex;
-justify-content:space-around;
-align-items:center;
-transform-origin:left;
-transition:transform 1.5s;
-border-radius:10px;
-box-shadow:0 15px 30px rgba(0,0,0,0.6);
+/* CAKE */
+
+.cake{
+  margin:60px auto;
+  position:relative;
+  width:220px;
 }
 
-.page img{
-width:250px;
-height:320px;
-object-fit:cover;
-border-radius:10px;
+.layer{
+  height:60px;
+  background:linear-gradient(145deg,#ff8fab,#ff4d6d);
+  border-radius:25px;
+  margin-bottom:-20px;
 }
 
-.page.flipped{
-transform:rotateY(-180deg);
+.layer.base{width:220px;}
+.layer.middle{width:160px;margin:0 auto;}
+.layer.top{width:120px;margin:0 auto;}
+
+.candles{
+  position:absolute;
+  top:-40px;
+  left:50%;
+  transform:translateX(-50%);
+  display:flex;
+  gap:12px;
+}
+
+.candle{
+  width:16px;
+  height:50px;
+  background:white;
+  border-radius:4px;
+  position:relative;
+}
+
+.flame{
+  width:12px;
+  height:18px;
+  background:orange;
+  border-radius:50%;
+  position:absolute;
+  top:-18px;
+  left:2px;
+}
+
+/* BUTTON */
+
+button{
+  padding:14px 30px;
+  background:#ff4d6d;
+  border:none;
+  color:white;
+  border-radius:30px;
+  font-size:16px;
+  cursor:pointer;
+  margin-top:40px;
 }
 
 </style>
@@ -137,305 +249,140 @@ transform:rotateY(-180deg);
 
 <body>
 
-<canvas id="matrix"></canvas>
+<!-- COUNTDOWN -->
 
+<div id="countdownScreen">
+<h1>Countdown to Blossom's Birthday 🎂</h1>
 <div id="countdown"></div>
+</div>
 
-<div id="fireworks"></div>
+<!-- MAIN PAGE -->
 
-<!-- CURVED TITLE -->
+<div id="mainPage">
 
-<div id="birthdayTitle">
+<div class="balloon" style="left:10%;animation-duration:15s;background:#ff758f"></div>
+<div class="balloon" style="left:30%;animation-duration:18s;background:#ffd166"></div>
+<div class="balloon" style="left:50%;animation-duration:16s;background:#06d6a0"></div>
+<div class="balloon" style="left:70%;animation-duration:20s;background:#118ab2"></div>
 
-<svg viewBox="0 0 900 300">
+<h1>Happy 19th Birthday Blossom ❤️</h1>
 
-<path id="curve" d="M100,200 Q450,40 800,200" fill="transparent"/>
+<div class="heart"></div>
 
-<text width="900">
-<textPath href="#curve" startOffset="50%" text-anchor="middle">
-Happy 19th Birthday Blossom ❤️
-</textPath>
-</text>
+<div class="photo-container">
+<img src="her.jpg">
+</div>
 
-</svg>
+<!-- KEEP YOUR MESSAGES HERE EXACTLY AS THEY ARE -->
+
+<div class="cake">
+<div class="layer top"></div>
+<div class="layer middle"></div>
+<div class="layer base"></div>
+
+<div class="candles">
+<div class="candle"><div class="flame"></div></div>
+<div class="candle"><div class="flame"></div></div>
+<div class="candle"><div class="flame"></div></div>
+<div class="candle"><div class="flame"></div></div>
+</div>
+</div>
+
+<button onclick="playMusic()">Tap to Play Our Song 🎵</button>
 
 </div>
 
-<!-- MESSAGES -->
-
-<div id="messages" style="display:none">
-
-<p class="message">To my Best Friend, My Love, My Dweeb, My Nerd, My Blossom ❤️</p>
-
-<p class="message">
-Happy 19th Birthday to you, my love.
-As it is written in Jeremiah 29:11,
-“For I know the plans I have for you,” declares the Lord,
-plans to prosper you and not to harm you,
-plans to give you hope and a future.
-</p>
-
-<p class="message">
-Today I celebrate not just the day you were born,
-but the woman you are becoming.
-</p>
-
-<p class="message">
-I admire your intellect at such a young age.
-It challenges me and inspires me to become better.
-</p>
-
-<p class="message">
-Mathematically you are an 11/10.
-That’s how rare you are.
-</p>
-
-<p class="message">
-If Economics is the study of value and scarcity,
-then you are priceless.
-</p>
-
-<p class="message">
-Leonardo da Vinci said:
-"Simplicity is the ultimate sophistication."
-That is you.
-</p>
-
-<p class="message">
-In physics imagination turns possibility into reality.
-Every thought of yours feels like the perfect equation.
-</p>
-
-<p class="message">
-I cherish you deeply.
-Happy Birthday my Blossom ❤️
-</p>
-
-</div>
-
-<!-- PHOTO BOOK -->
-
-<div id="album">
-
-<h2>Our Memories ❤️</h2>
-
-<div class="book" id="book">
-
-<div class="page">
-<img src="1.jpg">
-<img src="2.jpg">
-</div>
-
-<div class="page">
-<img src="3.jpg">
-<img src="4.jpg">
-</div>
-
-<div class="page">
-<img src="5.jpg">
-<img src="6.jpg">
-</div>
-
-<div class="page">
-<img src="7.jpg">
-<img src="8.jpg">
-</div>
-
-</div>
-
-</div>
-
-<audio id="music" autoplay loop>
-<source src="love_story_indila.mp3" type="audio/mp3">
+<audio id="bgMusic">
+<source src="song.mp3" type="audio/mpeg">
 </audio>
 
 <script>
 
-/* CHANGE THIS FOR TESTING */
+/* COUNTDOWN */
 
-let unlockDate = new Date("2026-03-13T23:57:00");
+const targetDate = new Date("March 21, 2026 00:00:00").getTime();
 
-/* countdown */
+const timer = setInterval(function(){
 
-const countdown = document.getElementById("countdown");
+const now = new Date().getTime();
+const distance = targetDate - now;
 
-function updateCountdown(){
+const days = Math.floor(distance/(1000*60*60*24));
+const hours = Math.floor((distance%(1000*60*60*24))/(1000*60*60));
+const minutes = Math.floor((distance%(1000*60*60))/(1000*60));
+const seconds = Math.floor((distance%(1000*60))/1000);
 
-let now = new Date();
-let diff = unlockDate - now;
+document.getElementById("countdown").innerHTML =
+days+"d "+hours+"h "+minutes+"m "+seconds+"s";
 
-if(diff <= 0){
+if(distance < 0){
 
-countdown.style.display="none";
-startFireworks();
+clearInterval(timer);
 
-return;
-}
+document.getElementById("countdownScreen").style.display="none";
 
-let days = Math.floor(diff/1000/60/60/24);
-let hours = Math.floor(diff/1000/60/60 %24);
-let minutes = Math.floor(diff/1000/60 %60);
-let seconds = Math.floor(diff/1000 %60);
-
-countdown.innerHTML =
-days+"d : "+hours+"h : "+minutes+"m : "+seconds+"s";
-
-}
-
-setInterval(updateCountdown,1000);
-
-
-/* matrix rain */
-
-const canvas=document.getElementById("matrix");
-const ctx=canvas.getContext("2d");
-
-canvas.height=window.innerHeight;
-canvas.width=window.innerWidth;
-
-let letters="01❤";
-letters=letters.split("");
-
-let fontSize=14;
-let columns=canvas.width/fontSize;
-
-let drops=[];
-
-for(let i=0;i<columns;i++) drops[i]=1;
-
-function draw(){
-
-ctx.fillStyle="rgba(45,0,107,0.05)";
-ctx.fillRect(0,0,canvas.width,canvas.height);
-
-ctx.fillStyle="pink";
-ctx.font=fontSize+"px monospace";
-
-for(let i=0;i<drops.length;i++){
-
-let text=letters[Math.floor(Math.random()*letters.length)];
-
-ctx.fillText(text,i*fontSize,drops[i]*fontSize);
-
-if(drops[i]*fontSize>canvas.height && Math.random()>0.975)
-drops[i]=0;
-
-drops[i]++;
-
-}
-
-}
-
-setInterval(draw,33);
-
-
-/* fireworks */
-
-function startFireworks(){
-
-let fw=document.getElementById("fireworks");
-
-for(let i=0;i<30;i++){
-
-let dot=document.createElement("div");
-
-dot.style.position="absolute";
-dot.style.width="6px";
-dot.style.height="6px";
-dot.style.background="pink";
-dot.style.borderRadius="50%";
-
-dot.style.left=Math.random()*window.innerWidth+"px";
-dot.style.top=Math.random()*window.innerHeight+"px";
-
-fw.appendChild(dot);
-
-}
-
-setTimeout(showTitle,3000);
-
-}
-
-
-/* show curved title */
-
-function showTitle(){
-
-document.getElementById("birthdayTitle").style.display="flex";
-
-setTimeout(startMessages,4000);
-
-}
-
-
-/* messages */
-
-function startMessages(){
-
-document.getElementById("birthdayTitle").style.display="none";
-
-let msgBox=document.getElementById("messages");
-msgBox.style.display="flex";
-
-let messages=document.querySelectorAll(".message");
-
-let i=0;
-
-function next(){
-
-if(i>=messages.length){
-
-showAlbum();
-return;
-
-}
-
-messages[i].classList.add("show");
-
-let words=messages[i].innerText.split(" ").length;
-let time=(words*350)+1000;
+launchFireworks();
 
 setTimeout(()=>{
-
-messages[i].classList.remove("show");
-i++;
-next();
-
-},time);
+document.getElementById("mainPage").style.display="block";
+showMessages();
+},3000)
 
 }
 
-next();
+},1000);
+
+
+/* FIREWORKS */
+
+function launchFireworks(){
+
+for(let i=0;i<40;i++){
+
+let f=document.createElement("div");
+
+f.className="firework";
+
+f.style.left=Math.random()*100+"vw";
+
+f.style.top=Math.random()*80+"vh";
+
+f.style.background=["#ff4d6d","#ffd166","#06d6a0","#118ab2"][Math.floor(Math.random()*4)];
+
+document.body.appendChild(f);
+
+}
 
 }
 
 
-/* album */
+/* CONFETTI */
 
-function showAlbum(){
-
-document.getElementById("messages").style.display="none";
-
-document.getElementById("album").style.display="block";
-
-let pages=document.querySelectorAll(".page");
-
-let i=0;
-
-function flip(){
-
-if(i>=pages.length) return;
-
-pages[i].classList.add("flipped");
-
-i++;
-
-setTimeout(flip,3000);
-
+for(let i=0;i<50;i++){
+let c=document.createElement("div");
+c.className="confetti";
+c.style.left=Math.random()*100+"vw";
+c.style.animationDuration=(Math.random()*3+2)+"s";
+c.style.background=["#ff4d6d","#ffd166","#06d6a0","#118ab2"][Math.floor(Math.random()*4)];
+document.body.appendChild(c);
 }
 
-setTimeout(flip,2000);
 
+/* MESSAGE ANIMATION */
+
+function showMessages(){
+const msgs=document.querySelectorAll(".message");
+msgs.forEach((m,i)=>{
+setTimeout(()=>{m.classList.add("show");}, i*1800);
+});
+}
+
+
+/* MUSIC */
+
+function playMusic(){
+document.getElementById("bgMusic").play();
+document.querySelector(".heart").classList.add("beat");
 }
 
 </script>
