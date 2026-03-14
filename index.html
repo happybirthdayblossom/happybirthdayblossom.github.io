@@ -3,209 +3,442 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Happy Birthday Blossom</title>
+<title>Happy Birthday Blossom ❤️</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
 
-    body, html {
-        margin: 0;
-        padding: 0;
-        height: 100%;
-        overflow: hidden;
-        background-color: #0b1a38; /* Dark blue background */
-        color: #ff69b4; /* Pink text */
-        font-family: 'Arial', sans-serif;
-    }
+body{
+margin:0;
+background:#2d006b;
+color:white;
+font-family:Poppins;
+overflow:hidden;
+text-align:center;
+}
 
-    canvas#matrix {
-        position: fixed;
-        top: 0;
-        left: 0;
-        z-index: 0;
-    }
+canvas{
+position:fixed;
+top:0;
+left:0;
+z-index:-1;
+}
 
-    #content {
-        position: relative;
-        z-index: 1;
-        width: 100%;
-        height: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        text-align: center;
-        color: #ff69b4;
-    }
+/* countdown */
 
-    #countdown {
-        font-size: 3em;
-        margin-bottom: 20px;
-    }
+#countdown{
+font-size:50px;
+margin-top:40vh;
+color:pink;
+}
 
-    #birthdayMessage {
-        font-size: 2em;
-        display: none;
-        margin-top: 20px;
-        max-width: 80%;
-    }
+/* fireworks */
 
-    .curved-text {
-        font-family: 'Great Vibes', cursive;
-        font-size: 4em;
-        font-weight: bold;
-        margin: 0;
-        line-height: 1.2;
-    }
+#fireworks{
+position:fixed;
+width:100%;
+height:100%;
+pointer-events:none;
+}
 
-    #hearts {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        pointer-events: none;
-        top: 0;
-        left: 0;
-    }
+/* curved birthday title */
 
-    .heart {
-        position: absolute;
-        width: 20px;
-        height: 20px;
-        background-color: pink;
-        transform: rotate(45deg);
-        animation: float 4s linear infinite;
-    }
+#birthdayTitle{
+display:none;
+justify-content:center;
+align-items:center;
+height:100vh;
+position:absolute;
+width:100%;
+}
 
-    .heart:before,
-    .heart:after {
-        content: "";
-        position: absolute;
-        width: 20px;
-        height: 20px;
-        background-color: pink;
-        border-radius: 50%;
-    }
+#birthdayTitle text{
+font-family:'Great Vibes',cursive;
+font-size:80px;
+fill:#ffb6c1;
+font-weight:bold;
+text-shadow:0 0 15px hotpink,0 0 40px hotpink;
+animation:glow 2s infinite alternate;
+}
 
-    .heart:before {
-        top: -10px;
-        left: 0;
-    }
+@keyframes glow{
+from{filter:drop-shadow(0 0 10px pink);}
+to{filter:drop-shadow(0 0 30px hotpink);}
+}
 
-    .heart:after {
-        left: 10px;
-        top: 0;
-    }
+/* message section */
 
-    @keyframes float {
-        0% { transform: translateY(0) rotate(45deg); opacity:1;}
-        100% { transform: translateY(-800px) rotate(45deg); opacity:0;}
-    }
+#messages{
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+height:100vh;
+padding:20px;
+}
+
+.message{
+max-width:700px;
+font-size:20px;
+line-height:1.8;
+opacity:0;
+transform:translateY(20px);
+transition:1s;
+}
+
+.message.show{
+opacity:1;
+transform:translateY(0);
+}
+
+/* album */
+
+#album{
+display:none;
+margin-top:40px;
+}
+
+.book{
+width:600px;
+height:400px;
+margin:auto;
+position:relative;
+perspective:2000px;
+}
+
+.page{
+position:absolute;
+width:100%;
+height:100%;
+background:white;
+display:flex;
+justify-content:space-around;
+align-items:center;
+transform-origin:left;
+transition:transform 1.5s;
+border-radius:10px;
+box-shadow:0 15px 30px rgba(0,0,0,0.6);
+}
+
+.page img{
+width:250px;
+height:320px;
+object-fit:cover;
+border-radius:10px;
+}
+
+.page.flipped{
+transform:rotateY(-180deg);
+}
+
 </style>
 </head>
+
 <body>
+
 <canvas id="matrix"></canvas>
 
-<div id="content">
-    <div id="countdown">3</div>
-    <h1 class="curved-text" id="birthdayTitle" style="display:none;">Happy 19th Birthday Blossom</h1>
-    <div id="birthdayMessage">
-        You walked into my life and turned ordinary days<br>
-        into memories I never want to forget...<br>
-        You make everything brighter and better.<br>
-        Happy Birthday, my love.
-    </div>
+<div id="countdown"></div>
+
+<div id="fireworks"></div>
+
+<!-- CURVED TITLE -->
+
+<div id="birthdayTitle">
+
+<svg viewBox="0 0 900 300">
+
+<path id="curve" d="M100,200 Q450,40 800,200" fill="transparent"/>
+
+<text width="900">
+<textPath href="#curve" startOffset="50%" text-anchor="middle">
+Happy 19th Birthday Blossom ❤️
+</textPath>
+</text>
+
+</svg>
+
 </div>
 
-<div id="hearts"></div>
+<!-- MESSAGES -->
+
+<div id="messages" style="display:none">
+
+<p class="message">To my Best Friend, My Love, My Dweeb, My Nerd, My Blossom ❤️</p>
+
+<p class="message">
+Happy 19th Birthday to you, my love.
+As it is written in Jeremiah 29:11,
+“For I know the plans I have for you,” declares the Lord,
+plans to prosper you and not to harm you,
+plans to give you hope and a future.
+</p>
+
+<p class="message">
+Today I celebrate not just the day you were born,
+but the woman you are becoming.
+</p>
+
+<p class="message">
+I admire your intellect at such a young age.
+It challenges me and inspires me to become better.
+</p>
+
+<p class="message">
+Mathematically you are an 11/10.
+That’s how rare you are.
+</p>
+
+<p class="message">
+If Economics is the study of value and scarcity,
+then you are priceless.
+</p>
+
+<p class="message">
+Leonardo da Vinci said:
+"Simplicity is the ultimate sophistication."
+That is you.
+</p>
+
+<p class="message">
+In physics imagination turns possibility into reality.
+Every thought of yours feels like the perfect equation.
+</p>
+
+<p class="message">
+I cherish you deeply.
+Happy Birthday my Blossom ❤️
+</p>
+
+</div>
+
+<!-- PHOTO BOOK -->
+
+<div id="album">
+
+<h2>Our Memories ❤️</h2>
+
+<div class="book" id="book">
+
+<div class="page">
+<img src="1.jpg">
+<img src="2.jpg">
+</div>
+
+<div class="page">
+<img src="3.jpg">
+<img src="4.jpg">
+</div>
+
+<div class="page">
+<img src="5.jpg">
+<img src="6.jpg">
+</div>
+
+<div class="page">
+<img src="7.jpg">
+<img src="8.jpg">
+</div>
+
+</div>
+
+</div>
+
+<audio id="music" autoplay loop>
+<source src="love_story_indila.mp3" type="audio/mp3">
+</audio>
 
 <script>
-    // Matrix rain
-    const canvas = document.getElementById('matrix');
-    const ctx = canvas.getContext('2d');
-    let width = canvas.width = window.innerWidth;
-    let height = canvas.height = window.innerHeight;
-    const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*";
-    const fontSize = 16;
-    const columns = Math.floor(width / fontSize);
-    const drops = [];
-    for (let x = 0; x < columns; x++) drops[x] = Math.random() * height;
 
-    function drawMatrix() {
-        ctx.fillStyle = "rgba(11,26,56,0.05)";
-        ctx.fillRect(0, 0, width, height);
-        ctx.fillStyle = "#ff69b4";
-        ctx.font = fontSize + "px monospace";
-        for (let i = 0; i < drops.length; i++) {
-            const text = letters[Math.floor(Math.random() * letters.length)];
-            ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-            if (drops[i] * fontSize > height && Math.random() > 0.975) drops[i] = 0;
-            drops[i]++;
-        }
-    }
-    setInterval(drawMatrix, 50);
-    window.addEventListener('resize', () => {
-        width = canvas.width = window.innerWidth;
-        height = canvas.height = window.innerHeight;
-    });
+/* CHANGE THIS FOR TESTING */
 
-    // Countdown
-    let countdownNum = 3;
-    const countdownEl = document.getElementById('countdown');
-    const titleEl = document.getElementById('birthdayTitle');
-    const messageEl = document.getElementById('birthdayMessage');
-    const heartsContainer = document.getElementById('hearts');
+let unlockDate = new Date("2026-03-21T00:00:00");
 
-    const countdownInterval = setInterval(() => {
-        countdownEl.textContent = countdownNum;
-        countdownNum--;
-        if (countdownNum < 0) {
-            clearInterval(countdownInterval);
-            countdownEl.style.display = 'none';
-            titleEl.style.display = 'block';
-            launchFireworks();
-            showMessageSequentially();
-            generateHearts();
-        }
-    }, 1000);
+/* countdown */
 
-    // Fireworks (simple)
-    function launchFireworks() {
-        for (let i = 0; i < 50; i++) {
-            const fire = document.createElement('div');
-            fire.style.position = 'absolute';
-            fire.style.width = '5px';
-            fire.style.height = '5px';
-            fire.style.background = '#ff69b4';
-            fire.style.borderRadius = '50%';
-            fire.style.left = Math.random() * window.innerWidth + 'px';
-            fire.style.top = Math.random() * window.innerHeight + 'px';
-            document.body.appendChild(fire);
-            setTimeout(() => { fire.remove(); }, 2000);
-        }
-    }
+const countdown = document.getElementById("countdown");
 
-    // Sequential message display
-    function showMessageSequentially() {
-        const lines = messageEl.innerHTML.split('<br>');
-        messageEl.innerHTML = '';
-        messageEl.style.display = 'block';
-        let index = 0;
-        const interval = setInterval(() => {
-            if (index >= lines.length) clearInterval(interval);
-            else messageEl.innerHTML += lines[index] + '<br>';
-            index++;
-        }, 1000);
-    }
+function updateCountdown(){
 
-    // Floating hearts
-    function generateHearts() {
-        for (let i = 0; i < 20; i++) {
-            const heart = document.createElement('div');
-            heart.className = 'heart';
-            heart.style.left = Math.random() * window.innerWidth + 'px';
-            heart.style.animationDuration = (3 + Math.random()*2) + 's';
-            heartsContainer.appendChild(heart);
-        }
-    }
+let now = new Date();
+let diff = unlockDate - now;
+
+if(diff <= 0){
+
+countdown.style.display="none";
+startFireworks();
+
+return;
+}
+
+let days = Math.floor(diff/1000/60/60/24);
+let hours = Math.floor(diff/1000/60/60 %24);
+let minutes = Math.floor(diff/1000/60 %60);
+let seconds = Math.floor(diff/1000 %60);
+
+countdown.innerHTML =
+days+"d : "+hours+"h : "+minutes+"m : "+seconds+"s";
+
+}
+
+setInterval(updateCountdown,1000);
+
+
+/* matrix rain */
+
+const canvas=document.getElementById("matrix");
+const ctx=canvas.getContext("2d");
+
+canvas.height=window.innerHeight;
+canvas.width=window.innerWidth;
+
+let letters="01❤";
+letters=letters.split("");
+
+let fontSize=14;
+let columns=canvas.width/fontSize;
+
+let drops=[];
+
+for(let i=0;i<columns;i++) drops[i]=1;
+
+function draw(){
+
+ctx.fillStyle="rgba(45,0,107,0.05)";
+ctx.fillRect(0,0,canvas.width,canvas.height);
+
+ctx.fillStyle="pink";
+ctx.font=fontSize+"px monospace";
+
+for(let i=0;i<drops.length;i++){
+
+let text=letters[Math.floor(Math.random()*letters.length)];
+
+ctx.fillText(text,i*fontSize,drops[i]*fontSize);
+
+if(drops[i]*fontSize>canvas.height && Math.random()>0.975)
+drops[i]=0;
+
+drops[i]++;
+
+}
+
+}
+
+setInterval(draw,33);
+
+
+/* fireworks */
+
+function startFireworks(){
+
+let fw=document.getElementById("fireworks");
+
+for(let i=0;i<30;i++){
+
+let dot=document.createElement("div");
+
+dot.style.position="absolute";
+dot.style.width="6px";
+dot.style.height="6px";
+dot.style.background="pink";
+dot.style.borderRadius="50%";
+
+dot.style.left=Math.random()*window.innerWidth+"px";
+dot.style.top=Math.random()*window.innerHeight+"px";
+
+fw.appendChild(dot);
+
+}
+
+setTimeout(showTitle,3000);
+
+}
+
+
+/* show curved title */
+
+function showTitle(){
+
+document.getElementById("birthdayTitle").style.display="flex";
+
+setTimeout(startMessages,4000);
+
+}
+
+
+/* messages */
+
+function startMessages(){
+
+document.getElementById("birthdayTitle").style.display="none";
+
+let msgBox=document.getElementById("messages");
+msgBox.style.display="flex";
+
+let messages=document.querySelectorAll(".message");
+
+let i=0;
+
+function next(){
+
+if(i>=messages.length){
+
+showAlbum();
+return;
+
+}
+
+messages[i].classList.add("show");
+
+let words=messages[i].innerText.split(" ").length;
+let time=(words*350)+1000;
+
+setTimeout(()=>{
+
+messages[i].classList.remove("show");
+i++;
+next();
+
+},time);
+
+}
+
+next();
+
+}
+
+
+/* album */
+
+function showAlbum(){
+
+document.getElementById("messages").style.display="none";
+
+document.getElementById("album").style.display="block";
+
+let pages=document.querySelectorAll(".page");
+
+let i=0;
+
+function flip(){
+
+if(i>=pages.length) return;
+
+pages[i].classList.add("flipped");
+
+i++;
+
+setTimeout(flip,3000);
+
+}
+
+setTimeout(flip,2000);
+
+}
+
 </script>
+
 </body>
 </html>
